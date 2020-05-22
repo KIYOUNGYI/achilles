@@ -10,7 +10,7 @@ buildscript {
                 "gradle-plugin:${springBootVersion}")
     }
 }
-
+// 스프링 부트 구동을 위한 필수 플러그인
 apply plugin : 'java'
 apply plugin:  'eclipse'
 apply plugin: 'org.springframework.boot'
@@ -32,6 +32,7 @@ dependencies {
 //    compile('org.springframework.boot:spring-boot-starter-web')
 //    compile('com.h2database:h2')
 //    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    implementation 'org.projectlombok:lombok'
     implementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'com.h2database:h2'
