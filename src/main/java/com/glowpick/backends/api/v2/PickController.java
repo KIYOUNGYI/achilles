@@ -1,10 +1,12 @@
 package com.glowpick.backends.api.v2;
 
 import com.glowpick.handler.ResultHandler;
+import com.glowpick.services.PickService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +20,8 @@ public class PickController
 {
     private Logger logger = LoggerFactory.getLogger(PickController.class);
 
+    @Autowired
+    PickService pickService;
     /**
      *
      * input: category_id
@@ -47,7 +51,7 @@ public class PickController
     {
 
         logger.debug("GET /api/v2/picks");
-        Map<String,Object> result = null;
+        Map<String, Object> result = pickService.getPicksAll();
 
         return new ResultHandler().handle(result);
     }
