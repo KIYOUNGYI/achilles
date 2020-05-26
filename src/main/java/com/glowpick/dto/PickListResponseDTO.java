@@ -30,7 +30,7 @@ public class PickListResponseDTO
     private List<Pick> picks;
     private List<Categories> categories;
     private int totalCount;
-    private List<?> paging;
+//    private List<?> paging;
 
     @Data
     public class Pick

@@ -1,5 +1,6 @@
-package com.glowpick.backends.api.v2;
+package com.glowpick.view;
 
+import com.glowpick.dto.PickListResponseDTO;
 import com.glowpick.handler.ResultHandler;
 import com.glowpick.services.PickService;
 import io.swagger.annotations.Api;
@@ -49,10 +50,9 @@ public class PickController
     @GetMapping("")
     private ResponseEntity<?> picksAll()
     {
-
         logger.debug("GET /api/v2/picks");
         Map<String, Object> result = pickService.getPicksAll();
-
+        logger.debug("result:",result);
         return new ResultHandler().handle(result);
     }
 

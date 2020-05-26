@@ -1,7 +1,7 @@
-package com.glowpick.backends.api.v2;
+package com.glowpick.view;
 
-import com.glowpick.backends.api.v2.dto.ProductRankListByStoreDto;
-import com.glowpick.backends.api.v2.dto.StoreListDto;
+import com.glowpick.dto.ProductRankListByStoreDto;
+import com.glowpick.dto.StoreListDto;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

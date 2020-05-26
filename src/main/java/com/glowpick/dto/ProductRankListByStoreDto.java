@@ -1,4 +1,4 @@
-package com.glowpick.backends.api.v2.dto;
+package com.glowpick.dto;
 
 /**
  * {

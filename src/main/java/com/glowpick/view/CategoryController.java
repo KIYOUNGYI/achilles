@@ -1,9 +1,7 @@
-package com.glowpick.backends.api.v2;
+package com.glowpick.view;
 
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class BrandsController
-{
-
+public class CategoryController {
 }
