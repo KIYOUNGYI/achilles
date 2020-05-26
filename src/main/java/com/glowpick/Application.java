@@ -1,6 +1,7 @@
 package com.glowpick;
 
 import com.glowpick.domain.Member;
+import com.glowpick.domain.RoleType;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
@@ -8,25 +9,26 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.util.Date;
 import java.util.List;
 
-@SpringBootApplication
+//@SpringBootApplication
 public class Application
 {
     public static void main(String[] args)
     {
-        SpringApplication app = new SpringApplication(Application.class);
+//        SpringApplication app = new SpringApplication(Application.class);
 
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("hello");
         // 쓰레드 안에 공유(x) => 공유하면 장애나~
         EntityManager entityManager = entityManagerFactory.createEntityManager();
         EntityTransaction entityTransaction = entityManager.getTransaction();
 
-//        createDummy(entityManager, entityTransaction, entityManagerFactory);
+        createDummy(entityManager, entityTransaction, entityManagerFactory);
 //        retrieveDummy(entityManager, entityTransaction, entityManagerFactory);
 //        updateDummy(entityManager, entityTransaction, entityManagerFactory);
 //        retrieveDummyByJpql(entityManager, entityTransaction, entityManagerFactory);
-        app.run(args);
+//        app.run(args);
     }
 
     private static void updateDummy(EntityManager entityManager, EntityTransaction entityTransaction, EntityManagerFactory entityManagerFactory)
@@ -36,7 +38,7 @@ public class Application
         try
         {
             Member findMember = entityManager.find(Member.class,1l);
-            findMember.setName("hello modified");
+            findMember.setUsername("hello modified");
             System.out.println("findMember:"+findMember.toString());
             //entityManager.remove(1l); delete
             entityTransaction.commit();
@@ -61,7 +63,7 @@ public class Application
 
             for(Member member:result)
             {
-                System.out.println("member.name =  "+member.getName());
+                System.out.println("member.name =  "+member.getUsername());
             }
 
         }
@@ -101,11 +103,13 @@ public class Application
         {
             // 비영속
             Member member = new Member();
-            member.setId(2l);
-            member.setName("Hello2");
+//            member.setId(1l);
+            member.setUsername("Hello10");
 
             // 영속
+            System.out.println("==============");
             entityManager.persist(member);
+            System.out.println("==============");
             // 준영속 (엔티티매니저에서 떼어버리는 것)
 //            entityManager.detach(member);
             // 삭제
@@ -115,6 +119,7 @@ public class Application
         }
         catch (Exception e)
         {
+            System.out.println("createDummy exception:" + e);
             entityTransaction.rollback();
         }
         finally {
