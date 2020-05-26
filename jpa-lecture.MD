@@ -17,10 +17,7 @@
 현업에서 주는 이점 -> 성능 글쎄? 근데 
 컨셉이 주는 이점이 있음 (나중에 설명)
 
-
-
 동일성 보장
-
 같은 트랜잭션 안에서 비교하는거 == 나온다. (이정도로 이해해도 무방)
 
 
@@ -73,4 +70,44 @@ FlushModeType.COMMIT
 영속 상태의 엔티티가 영속성 컨텍스트에서 분리(detached)
 영속 컨텍스트가 제공하는 기능을 사용 못함
 
-eㅡ.ㅇㄷㅅㅁ
+데이터베이스 스키마 자동생성 주의 
+운영, 개발 서버(여러 명 사용하는) 장비에는 절대 절대 create, create-drop, update 사용하면 진짜 큰일난다.
+이기능 쓰지마 그냥, 니가 직접 스크립트로 만들어. 아니면 그 팀에서 사용하는 db 마이그레이션 서비스를 사용하든가.
+
+개발 초기 단계는 create 또는 update (nope)
+테스트 서버는 update 또는 validate (하지마)
+스테이징과 운영서버는 validate 또는 none (validate 도 쓰지마 제발)
+
+hibernate.hbm2ddl.auto 옵션 
+none - 사용하지 않음 (*****)
+validate - 엔티티와 테이블이 정상 매핑되었는지만 확인 (*****)
+create(기존테이블 삭제 후 다시 생성 (drop+create))
+create-drop(create와 같으나 종료시점에 테이블 drop)
+update - 변경분만 반영(운영db에는 사용하면 안됨)
+
+
+@column옵션
+nullable = false <- 이건 좀 쓰는 옵션임
+
+columndefinition 안쓸꺼야
+
+@Enumerated(EnumType.STRING)
+오디널은 절대 쓰지말자. 왜냐하면
+이넘에 데이터 추가하는순간 엿되므로.
+원래 user,admin 이면 0,1 로 저장되는데
+guest 를 0번으로 추가하면 
+0,1,0 이런식으로 저장됨. 진짜 진짜 엿되는거임.
+
+
+기본 키 제약 조건: null 아님, 유일, 변하면 안딘다.
+변하면 안된다 <- 이건 정말 어려움
+미래까지 이 조건을 만족하는 자연키는 찾기 어렵다. 대리키(대체키)를 사용하자.
+
+예를 들어 주민등록번호도 기본 키로 적절하지 않다.
+
+권장: Long형 + 대체키 + 키 생성전략 사용
+
+generated value 값이 짱인듯?
+auto_increment 값
+
+
